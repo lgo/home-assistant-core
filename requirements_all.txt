@@ -646,6 +646,9 @@ epson-projector==0.5.0
 # homeassistant.components.epsonworkforce
 epsonprinter==0.0.9
 
+# homeassistant.components.eques_elf
+eques_elf==0.0.2
+
 # homeassistant.components.netgear_lte
 eternalegypt==0.0.12
 

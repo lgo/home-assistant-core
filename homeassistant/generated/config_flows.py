@@ -103,6 +103,7 @@ FLOWS = {
         "enphase_envoy",
         "environment_canada",
         "epson",
+        "eques_elf",
         "escea",
         "esphome",
         "evil_genius_labs",

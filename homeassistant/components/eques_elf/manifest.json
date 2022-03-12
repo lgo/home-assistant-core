@@ -1,0 +1,9 @@
+{
+  "domain": "eques_elf",
+  "name": "Eques Elf",
+  "config_flow": true,
+  "documentation": "https://www.home-assistant.io/integrations/eques_elf",
+  "requirements": ["eques_elf==0.0.2"],
+  "codeowners": ["@lgo"],
+  "iot_class": "local_polling"
+}
