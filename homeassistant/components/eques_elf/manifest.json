@@ -3,7 +3,8 @@
   "name": "Eques Elf",
   "config_flow": true,
   "documentation": "https://www.home-assistant.io/integrations/eques_elf",
-  "requirements": ["eques_elf==0.0.2"],
+  "requirements": ["eques_elf==0.0.3"],
   "codeowners": ["@lgo"],
+  "dhcp": [{ "macaddress": "DC4F2225*" }],
   "iot_class": "local_polling"
 }

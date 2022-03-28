@@ -1,6 +1,9 @@
 from __future__ import annotations
 
-from eques_elf import Device, eques_local
+import logging
+
+from eques_elf import eques_local
+from eques_elf.device import Device
 import voluptuous as vol
 
 from homeassistant.components.switch import PLATFORM_SCHEMA, SwitchEntity
@@ -8,6 +11,8 @@ from homeassistant.core import HomeAssistant
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
+
+_LOGGER = logging.getLogger(__name__)
 
 CONF_IP = "ip"
 CONF_MAC = "mac"
@@ -29,13 +34,32 @@ def setup_platform(
     discovery_info: DiscoveryInfoType | None = None,
 ) -> None:
     """Set up the Eques Elf switch."""
-    device = Device(
-        ip=config[CONF_IP],
-        mac=config[CONF_MAC],
-        password=config[CONF_PASSWORD],
-    )
+    devices = []
+    # Setup manually configured devices.
+    # if hass.data[DOMAIN].get(CONF_IP_ADDRESS):
+    #     devices.append(
+    #         Device(
+    #             ip=config[CONF_IP],
+    #             mac=config[CONF_MAC],
+    #             password=config[CONF_PASSWORD],
+    #         )
+    #     )
 
-    add_entities([EquesElfSmartPlug(device)])
+    # Scan for any additional devices.
+    devices += eques_local.discover_command()
+
+    add_entities([EquesElfSmartPlug(device) for device in devices])
+
+
+async def async_setup_entry(
+    hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
+) -> None:
+    """Set up Eques Elf smart plug switch device."""
+    # TODO(joey): Parse out smart plugs.
+
+    # data = hass.data[DOMAIN][entry.entry_id]
+    switches = []
+    async_add_entities(switches)
 
 
 class EquesElfSmartPlug(SwitchEntity):
